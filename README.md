@@ -198,7 +198,7 @@ GEMINI_API_KEY=your_gemini_api_key_here
 From the `server` folder:
 
 ```bash
-node server.js
+node index.js
 ```
 
 The backend runs on:
