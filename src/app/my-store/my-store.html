@@ -1,0 +1,120 @@
+<div class="my-store-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/home">← Back to Home</a>
+  </nav>
+
+  <!-- HEADER -->
+
+  <header class="store-header">
+    <div>
+      <span class="section-label">MY STORE</span>
+      <h1>Your <span>Store Profile</span></h1>
+      <p>
+        Store information saved from your Store Setup.
+      </p>
+    </div>
+    <div class="ai-badge">🏪</div>
+  </header>
+
+
+  <main class="store-main">
+
+    <!-- NO DATA STATE -->
+    @if (!hasData) {
+
+      <div class="empty-card">
+        <div class="empty-icon">🏪</div>
+        <h3>No store information found</h3>
+        <p>
+          You haven't set up your store yet. Complete Store Setup to save
+          your store details here.
+        </p>
+        <a
+          class="setup-button"
+          routerLink="/store-setup">
+          Go to Store Setup →
+        </a>
+      </div>
+
+    }
+
+
+    <!-- STORE DATA -->
+    @if (hasData) {
+
+      <!-- STORE IDENTITY CARD -->
+      <div class="profile-card">
+
+        <div class="profile-card-top">
+          <div class="store-avatar">
+            {{ storeName.charAt(0) }}
+          </div>
+          <div>
+            <span class="card-label">STORE NAME</span>
+            <h2>{{ storeName }}</h2>
+          </div>
+        </div>
+
+        <div class="profile-details">
+
+          <div class="detail-item">
+            <span class="detail-label">BUSINESS TYPE</span>
+            <strong>{{ businessType }}</strong>
+          </div>
+
+          <div class="detail-divider"></div>
+
+          <div class="detail-item">
+            <span class="detail-label">STORE SIZE</span>
+            <strong>{{ storeSize }}</strong>
+          </div>
+
+          <div class="detail-divider"></div>
+
+          <div class="detail-item">
+            <span class="detail-label">PRIMARY GOAL</span>
+            <strong>{{ primaryGoal }}</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUICK LINKS -->
+      <div class="quick-links">
+
+        <a class="quick-link-card" routerLink="/store-setup">
+          <span class="quick-icon">⚙️</span>
+          <div>
+            <strong>Update Store Setup</strong>
+            <span>Edit your store details</span>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+
+        <a class="quick-link-card" routerLink="/dashboard">
+          <span class="quick-icon">📊</span>
+          <div>
+            <strong>Go to Dashboard</strong>
+            <span>View your store overview</span>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+
+      </div>
+
+    }
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="store-footer">
+    <strong>✦ AI Store Doctor</strong>
+    <span>Smart business management for retail stores.</span>
+  </footer>
+
+</div>

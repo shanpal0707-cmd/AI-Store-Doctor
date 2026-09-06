@@ -1,0 +1,490 @@
+<div class="business-analysis-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/dashboard">← Back to Dashboard</a>
+  </nav>
+
+  <!-- ================= HEADER ================= -->
+  <header class="analysis-header">
+
+    <div>
+      <span class="section-label">BUSINESS ANALYST</span>
+
+      <h1>
+        AI <span>Business Analysis</span>
+      </h1>
+
+      <p>
+        Understand your store performance and discover the areas
+        that can help your business grow.
+      </p>
+    </div>
+
+    <div class="ai-badge">
+      ✦ AI
+    </div>
+
+  </header>
+
+
+  <!-- ================= ANALYSIS INTRO ================= -->
+  <section class="analysis-card">
+
+    <div class="analysis-icon">▥</div>
+
+    <div class="analysis-content">
+
+      <span class="card-label">AI BUSINESS INTELLIGENCE</span>
+
+      <h2>Analyze your business</h2>
+
+      <p>
+        AI Store Doctor will examine your store information,
+        product performance, sales and inventory indicators
+        to identify important business trends and growth opportunities.
+      </p>
+
+      <button
+        type="button"
+        class="analyze-button"
+        [disabled]="isLoading"
+        (click)="analyzeBusinessAI()">
+
+        @if (isLoading) {
+          ✦ Analyzing…
+        } @else {
+          ✦ Analyze Business with AI
+        }
+
+        <span>→</span>
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= WHAT AI WILL CHECK ================= -->
+  <section class="checks-section">
+
+    <div class="section-heading">
+
+      <span class="section-label">AI CHECKS</span>
+
+      <h2>
+        What will AI <span>analyze?</span>
+      </h2>
+
+    </div>
+
+    <div class="check-grid">
+
+      <div class="check-card">
+        <div class="check-icon">📊</div>
+        <h3>Business Performance</h3>
+        <p>Understand the overall performance of your store and identify areas that need improvement.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">💰</div>
+        <h3>Revenue &amp; Profit</h3>
+        <p>Identify profitable areas and understand how your pricing and sales affect business performance.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">📦</div>
+        <h3>Inventory Health</h3>
+        <p>Detect slow-moving inventory and potential stock management problems.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">📈</div>
+        <h3>Growth Opportunities</h3>
+        <p>Discover practical opportunities that could help improve your store's overall growth.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= RESULT SECTION ================= -->
+  <section class="result-section">
+
+    <!-- RESULT HEADER -->
+    <div class="result-header">
+
+      <div>
+        <span class="section-label">BUSINESS RESULT</span>
+        <h2>Business <span>Diagnosis</span></h2>
+      </div>
+
+      <span class="ai-status">
+        @if (isLoading) {
+          ✦ Analyzing…
+        } @else if (analysisComplete && !errorMessage) {
+          ✦ Analysis Complete
+        } @else {
+          ✦ Analysis Ready
+        }
+      </span>
+
+    </div>
+
+
+    <!-- ================= LOADING STATE ================= -->
+    @if (isLoading) {
+
+      <div class="loading-state">
+
+        <div class="loading-spinner">▥</div>
+
+        <h3>AI is analyzing your business…</h3>
+
+        <p>
+          Examining {{ productCount }}
+          {{ productCount === 1 ? 'product' : 'products' }},
+          revenue trends, profitability and growth opportunities.
+        </p>
+
+      </div>
+
+    }
+
+
+    <!-- ================= ERROR STATE ================= -->
+    @if (!isLoading && analysisComplete && errorMessage) {
+
+      <div class="empty-result">
+
+        <div class="empty-icon">⚠</div>
+
+        <h3>Analysis failed</h3>
+
+        <p>{{ errorMessage }}</p>
+
+        <button
+          type="button"
+          class="retry-button"
+          (click)="analyzeBusinessAI()">
+
+          Retry Analysis
+
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+    }
+
+
+    <!-- ================= NO PRODUCTS STATE ================= -->
+    @if (!isLoading && !analysisComplete && productCount === 0) {
+
+      <div class="empty-result">
+
+        <div class="empty-icon">▥</div>
+
+        <h3>No business data available</h3>
+
+        <p>
+          Add products first from the Product Doctor page.
+          Your business performance will automatically appear here.
+        </p>
+
+        <button
+          type="button"
+          class="retry-button"
+          routerLink="/products">
+
+          Add Products
+
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+    }
+
+
+    <!-- ================= LOCAL METRICS (always shown when products exist) ================= -->
+    @if (!isLoading && productCount > 0) {
+
+      <!-- SUMMARY BAR -->
+      <div class="result-summary">
+
+        <div class="summary-icon">✦</div>
+
+        <div>
+          <span class="card-label">BUSINESS OVERVIEW</span>
+          <h3>{{ storeName }} Performance</h3>
+          <p>
+            Your business currently has
+            {{ productCount }}
+            {{ productCount === 1 ? 'product' : 'products' }}
+            in the analysis.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- METRIC CARDS -->
+      <div class="business-results">
+
+        <div class="result-card">
+          <span class="result-card-label">BUSINESS HEALTH</span>
+          <strong>{{ businessScore }}<small>/100</small></strong>
+          <p>Overall health of your business.</p>
+        </div>
+
+        <div class="result-card">
+          <span class="result-card-label">TOTAL REVENUE</span>
+          <strong>₹{{ totalRevenue | number:'1.0-0' }}</strong>
+          <p>Revenue generated from products sold.</p>
+        </div>
+
+        <div class="result-card">
+          <span class="result-card-label">TOTAL PROFIT</span>
+          <strong [ngClass]="getProfitClass()">
+            ₹{{ totalProfit | number:'1.0-0' }}
+          </strong>
+          <p>Profit generated after product costs.</p>
+        </div>
+
+        <div class="result-card">
+          <span class="result-card-label">PROFIT MARGIN</span>
+          <strong>{{ profitMargin }}%</strong>
+          <p>Average profitability across sales.</p>
+        </div>
+
+        <div class="result-card">
+          <span class="result-card-label">SALES RATE</span>
+          <strong>{{ salesRate }}%</strong>
+          <p>Percentage of available units sold.</p>
+        </div>
+
+        <div class="result-card">
+          <span class="result-card-label">PRODUCTS ANALYZED</span>
+          <strong>{{ productCount }}</strong>
+          <p>Products included in this analysis.</p>
+        </div>
+
+      </div>
+
+
+      <!-- PERFORMANCE STATUS -->
+      <div class="performance-card">
+
+        <div class="performance-icon">📊</div>
+
+        <div>
+          <span class="card-label">PERFORMANCE STATUS</span>
+          <h3>{{ performanceLabel }}</h3>
+          <p>
+            Based on your current sales rate, profitability and inventory position,
+            your business is currently classified as
+            <strong>{{ performanceLabel }}</strong>.
+          </p>
+        </div>
+
+      </div>
+
+
+      <!-- ================= LOCAL KEY INSIGHTS (shown before AI runs) ================= -->
+      @if (!analysisComplete) {
+
+        <div class="insights-block">
+
+          <div class="section-heading">
+            <span class="section-label">KEY INSIGHTS</span>
+            <h2>What needs your <span>attention?</span></h2>
+          </div>
+
+          <!-- SALES -->
+          <div class="business-insight-card">
+            <div class="insight-icon">📈</div>
+            <div>
+              <span class="card-label">SALES PERFORMANCE</span>
+              <h3>{{ salesRate < 25 ? 'Improve sales velocity' : 'Sales performance is healthy' }}</h3>
+              <p>
+                Your current sales rate is <strong>{{ salesRate }}%</strong>.
+                {{ salesRate < 25
+                  ? 'Some products may be moving slowly. Consider targeted promotions or better product visibility.'
+                  : 'Your products are generating a healthy level of sales compared with available inventory.' }}
+              </p>
+            </div>
+          </div>
+
+          <!-- PROFIT -->
+          <div class="business-insight-card">
+            <div class="insight-icon">💰</div>
+            <div>
+              <span class="card-label">PROFITABILITY</span>
+              <h3>{{ profitMargin >= 15 ? 'Positive profit margins' : 'Profit margins need attention' }}</h3>
+              <p>
+                Your current profit margin is <strong>{{ profitMargin }}%</strong>.
+                {{ profitMargin >= 15
+                  ? 'Your pricing currently generates positive profitability.'
+                  : 'Review product pricing and costs to improve profitability.' }}
+              </p>
+            </div>
+          </div>
+
+          <!-- INVENTORY -->
+          <div class="business-insight-card">
+            <div class="insight-icon">📦</div>
+            <div>
+              <span class="card-label">INVENTORY</span>
+              <h3>{{ totalStock > totalUnitsSold * 5 ? 'Inventory turnover needs attention' : 'Inventory levels look manageable' }}</h3>
+              <p>
+                Your store currently has <strong>{{ totalStock }}</strong> units in stock
+                and <strong>{{ totalUnitsSold }}</strong> units sold.
+                {{ totalStock > totalUnitsSold * 5
+                  ? 'High remaining inventory may be tying up working capital.'
+                  : 'Your current stock position appears relatively balanced.' }}
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+
+        <!-- STATIC RECOMMENDATION (before AI runs) -->
+        <div class="recommendation-card">
+
+          <div class="recommendation-icon">💡</div>
+
+          <div>
+            <span class="card-label">TOP RECOMMENDATION</span>
+            <h3>Run AI Analysis for personalised insights</h3>
+            <p>
+              Click "Analyze Business with AI" above to get a full AI-powered diagnosis
+              with personalised recommendations specific to your store's products and goals.
+            </p>
+          </div>
+
+        </div>
+
+      }
+
+
+      <!-- ================= AI RESULT CARDS (shown after AI completes) ================= -->
+      @if (analysisComplete && !errorMessage && aiResult) {
+
+        <!-- AI SCORE BANNER -->
+        <div class="ai-score-banner">
+
+          <div class="ai-score-left">
+            <span class="card-label">AI BUSINESS SCORE</span>
+            <div class="ai-score-number">
+              {{ aiScore }}<small>/100</small>
+            </div>
+          </div>
+
+          <div class="ai-score-right">
+            <span class="card-label">AI SUMMARY</span>
+            <p>{{ aiSummary }}</p>
+          </div>
+
+        </div>
+
+
+        <!-- AI PRODUCT BREAKDOWN HEADER -->
+        <div class="section-heading ai-section-heading">
+          <span class="section-label">AI PRODUCT BREAKDOWN</span>
+          <h2>Product-level <span>Diagnosis</span></h2>
+        </div>
+
+        <div class="ai-product-count-row">
+          <div class="ai-count-pill healthy">
+            ✓ {{ aiHealthyCount }} Healthy
+          </div>
+          <div class="ai-count-pill attention">
+            ⚠ {{ aiAttentionCount }} Need Attention
+          </div>
+        </div>
+
+
+        <!-- AI PRODUCT CARDS -->
+        @for (product of aiProducts; track product.id) {
+
+          <div class="ai-product-card">
+
+            <div class="ai-product-header">
+
+              <div class="ai-product-name">
+                <strong>{{ product.productName }}</strong>
+                <span class="ai-product-category">{{ product.category }}</span>
+              </div>
+
+              <div class="ai-product-score-wrap">
+                <span
+                  class="ai-health-badge"
+                  [ngClass]="getAiStatusClass(product.healthStatus)">
+                  {{ product.healthStatus }}
+                </span>
+                <span class="ai-health-score">{{ product.healthScore }}/100</span>
+              </div>
+
+            </div>
+
+
+            <div class="ai-product-fields">
+
+              <div class="ai-field">
+                <span class="ai-field-label">📈 Sales</span>
+                <p>{{ product.salesPerformance }}</p>
+              </div>
+
+              <div class="ai-field">
+                <span class="ai-field-label">💰 Profitability</span>
+                <p>{{ product.profitability }}</p>
+              </div>
+
+              <div class="ai-field">
+                <span class="ai-field-label">📦 Inventory Risk</span>
+                <p>{{ product.inventoryRisk }}</p>
+              </div>
+
+              <div class="ai-field highlight-problem">
+                <span class="ai-field-label">⚠ Key Problem</span>
+                <p>{{ product.keyProblem }}</p>
+              </div>
+
+              <div class="ai-field highlight-action">
+                <span class="ai-field-label">✦ Recommended Action</span>
+                <p>{{ product.recommendedAction }}</p>
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+
+        <!-- AI TOP RECOMMENDATION -->
+        <div class="recommendation-card ai-recommendation">
+
+          <div class="recommendation-icon">💡</div>
+
+          <div>
+            <span class="card-label">AI TOP RECOMMENDATION</span>
+            <h3>Most Important Action</h3>
+            <p>{{ aiTopRecommendation }}</p>
+          </div>
+
+        </div>
+
+      }
+
+    }
+
+  </section>
+
+</div>

@@ -1,0 +1,395 @@
+<div class="dashboard-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/home">← Back to Home</a>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="dashboard-header">
+
+    <div class="brand">
+      <div class="brand-icon">✦</div>
+
+      <div>
+        <h2>AI Store Doctor</h2>
+        <span>Smart Business Assistant</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <span class="welcome">Welcome back 👋</span>
+
+      <div class="profile">
+        {{ storeName.charAt(0) }}
+      </div>
+    </div>
+
+  </header>
+
+
+  <!-- MAIN -->
+  <main class="dashboard-main">
+
+    <!-- WELCOME -->
+    <section class="welcome-section">
+
+      <div>
+        <span class="section-label">STORE DASHBOARD</span>
+
+        <h1>
+          Hello, <span>{{ storeName }}</span>
+        </h1>
+
+        <p>
+          Here's what AI Store Doctor sees about your business.
+          Let's turn your store data into smarter decisions.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        class="analyze-button"
+        routerLink="/ai-analysis">
+
+        ✦ Analyze My Store
+        <span>→</span>
+
+      </button>
+
+    </section>
+
+
+    <!-- STORE INFO -->
+    <section class="store-info-card">
+
+      <div class="store-info-item">
+        <span>STORE TYPE</span>
+        <strong>{{ businessType }}</strong>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="store-info-item">
+        <span>STORE SIZE</span>
+        <strong>{{ storeSize }}</strong>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="store-info-item">
+        <span>PRIMARY GOAL</span>
+        <strong>{{ primaryGoal }}</strong>
+      </div>
+
+    </section>
+
+
+    <!-- HEALTH + CARDS -->
+    <section class="dashboard-grid">
+
+      <!-- HEALTH SCORE -->
+      <div class="health-card">
+
+        <div class="card-top">
+
+          <div>
+            <span class="card-label">STORE HEALTH</span>
+            <h2>Store Health Score</h2>
+          </div>
+
+          <div class="health-icon">✦</div>
+
+        </div>
+
+
+        <div class="score-area">
+
+          <div class="score-circle">
+            <strong>{{ healthScore }}</strong>
+            <span>/100</span>
+          </div>
+
+          <div class="score-text">
+
+            <strong>{{ healthScoreLabel }}</strong>
+
+            <p>{{ healthScoreDesc }}</p>
+
+          </div>
+
+        </div>
+
+
+        <div class="progress-bar">
+
+          <div
+            class="progress"
+            [style.width.%]="healthScore">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT HEALTH -->
+      <div class="metric-card">
+
+        <div class="metric-icon doctor">✦</div>
+
+        <span class="card-label">
+          PRODUCT DOCTOR
+        </span>
+
+        <h3>Product Health</h3>
+
+        <strong class="metric-value">
+          {{ productCount === 0 ? '—' : productHealthPct + '%' }}
+        </strong>
+
+        <p>{{ productHealthDesc }}</p>
+
+
+        <!-- PRODUCT PAGE BUTTON -->
+        <button
+          type="button"
+          class="metric-button"
+          routerLink="/products">
+
+          View Products
+
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+
+      <!-- BUSINESS PERFORMANCE -->
+      <div class="metric-card">
+
+        <div class="metric-icon analyst">▥</div>
+
+        <span class="card-label">
+          BUSINESS ANALYST
+        </span>
+
+        <h3>Business Performance</h3>
+
+        <strong class="metric-value">
+          Good
+        </strong>
+
+        <p>
+          Your business has stable performance.
+        </p>
+
+        <button
+          type="button"
+          class="metric-button"
+          routerLink="/business-analysis">
+
+          View Analysis
+
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+
+      <!-- MARKET -->
+      <div class="metric-card">
+
+        <div class="metric-icon market">↗</div>
+
+        <span class="card-label">
+          MARKET INTELLIGENCE
+        </span>
+
+        <h3>Market Opportunity</h3>
+
+        <strong class="metric-value">
+          3
+        </strong>
+
+        <p>
+          potential opportunities detected.
+        </p>
+
+        <button
+          type="button"
+          class="metric-button"
+          routerLink="/market-intelligence">
+
+          Explore Market
+
+          <span>→</span>
+
+        </button>
+
+      </div>
+
+    </section>
+
+
+    <!-- AI INSIGHTS -->
+    <section class="insights-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-label">
+            AI INSIGHTS
+          </span>
+
+          <h2>
+            What needs your attention?
+          </h2>
+
+        </div>
+
+        <span class="ai-status">
+          ✦ AI Ready
+        </span>
+
+      </div>
+
+
+      <div class="insight-grid">
+
+        @for (insight of insights; track insight.number) {
+          <div class="insight-card">
+
+            <div class="insight-number">{{ insight.number }}</div>
+
+            <div>
+              <strong>{{ insight.title }}</strong>
+              <p>{{ insight.description }}</p>
+            </div>
+
+            <span class="insight-arrow">→</span>
+
+          </div>
+        }
+
+      </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+    <section class="quick-actions">
+
+      <div class="section-heading">
+
+        <div>
+
+          <span class="section-label">
+            QUICK ACTIONS
+          </span>
+
+          <h2>
+            What would you like to do?
+          </h2>
+
+        </div>
+
+      </div>
+
+
+      <div class="action-grid">
+
+
+        <!-- PRODUCT DOCTOR -->
+        <button
+          type="button"
+          class="action-card"
+          routerLink="/products">
+
+          <div class="action-icon">✦</div>
+
+          <div>
+            <strong>Product Doctor</strong>
+            <span>Check product performance</span>
+          </div>
+
+          <b>→</b>
+
+        </button>
+
+
+        <!-- BUSINESS ANALYSIS -->
+        <button
+          type="button"
+          class="action-card"
+          routerLink="/business-analysis">
+
+          <div class="action-icon">▥</div>
+
+          <div>
+            <strong>Business Analysis</strong>
+            <span>Understand your store</span>
+          </div>
+
+          <b>→</b>
+
+        </button>
+
+
+        <!-- MARKET INTELLIGENCE -->
+        <button
+          type="button"
+          class="action-card"
+          routerLink="/market-intelligence">
+
+          <div class="action-icon">↗</div>
+
+          <div>
+            <strong>Market Intelligence</strong>
+            <span>Find growth opportunities</span>
+          </div>
+
+          <b>→</b>
+
+        </button>
+
+
+        <!-- AI CONTENT CREATOR -->
+        <button
+  type="button"
+  class="action-card"
+  routerLink="/ai-content-creator">
+
+          <div class="action-icon">✎</div>
+
+          <div>
+            <strong>AI Content Creator</strong>
+            <span>Create marketing content</span>
+          </div>
+
+          <b>→</b>
+
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="dashboard-footer">
+
+    <strong>✦ AI Store Doctor</strong>
+
+    <span>
+      AI-powered business intelligence for smarter retail decisions.
+    </span>
+
+  </footer>
+
+</div>

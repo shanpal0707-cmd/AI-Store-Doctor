@@ -1,0 +1,632 @@
+<div class="content-creator-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/dashboard">← Back to Dashboard</a>
+  </nav>
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="content-header">
+
+    <div>
+      <span class="section-label">AI CONTENT CREATOR</span>
+
+      <h1>
+        Create content that <span>sells.</span>
+      </h1>
+
+      <p>
+        Turn your product information into engaging marketing
+        content with AI Store Doctor.
+      </p>
+    </div>
+
+    <div class="ai-badge">
+      ✦ AI
+    </div>
+
+  </header>
+
+
+  <main class="content-main">
+
+    <!-- ================= CONTENT FORM ================= -->
+
+    <section class="creator-card">
+
+      <div class="creator-card-header">
+
+        <div>
+          <span class="card-label">
+            CONTENT GENERATOR
+          </span>
+
+          <h2>
+            Create marketing content
+          </h2>
+
+          <p>
+            Select a product and tell AI what kind of content
+            you want to create.
+          </p>
+        </div>
+
+        <div class="creator-icon">
+          ✎
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCT -->
+<div class="form-group">
+
+  <label for="product">
+    Your Product
+  </label>
+
+  @if (products.length === 0) {
+    <p class="no-products-msg">
+      No products found. <a routerLink="/products">Add products first →</a>
+    </p>
+  } @else {
+    <select
+      id="product"
+      name="product"
+      [(ngModel)]="selectedProduct"
+      [compareWith]="compareProducts">
+
+      @for (p of products; track p._id || p.id) {
+        <option [ngValue]="p">{{ p.productName }} — ₹{{ p.sellingPrice }}</option>
+      }
+
+    </select>
+  }
+
+</div>
+      <!-- CONTENT TYPE -->
+
+      <div class="two-column">
+
+        <div class="form-group">
+
+          <label for="contentType">
+            Content Type
+          </label>
+
+          <select
+            id="contentType"
+            name="contentType"
+            [(ngModel)]="contentType">
+
+            <option value="Instagram Caption">
+              Instagram Caption
+            </option>
+
+            <option value="Facebook Post">
+              Facebook Post
+            </option>
+
+            <option value="Product Description">
+              Product Description
+            </option>
+
+            <option value="WhatsApp Promotion">
+              WhatsApp Promotion
+            </option>
+
+            <option value="Advertisement">
+              Advertisement
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- TONE -->
+
+        <div class="form-group">
+
+          <label for="tone">
+            Tone
+          </label>
+
+          <select
+            id="tone"
+            name="tone"
+            [(ngModel)]="tone">
+
+            <option value="Friendly">
+              Friendly
+            </option>
+
+            <option value="Professional">
+              Professional
+            </option>
+
+            <option value="Creative">
+              Creative
+            </option>
+
+            <option value="Luxury">
+              Luxury
+            </option>
+
+            <option value="Urgent">
+              Urgent
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <!-- MARKETING GOAL -->
+
+      <div class="form-group">
+
+        <label for="marketingGoal">
+          Marketing Goal
+        </label>
+
+        <select
+          id="marketingGoal"
+          name="marketingGoal"
+          [(ngModel)]="marketingGoal">
+
+          <option value="Increase Sales">
+            Increase Sales
+          </option>
+
+          <option value="Clear Inventory">
+            Clear Inventory
+          </option>
+
+          <option value="Launch Product">
+            Launch Product
+          </option>
+
+          <option value="Build Brand Awareness">
+            Build Brand Awareness
+          </option>
+
+          <option value="Promote Offer">
+            Promote Offer
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- PRODUCT PREVIEW -->
+
+      <div
+        class="product-preview"
+        *ngIf="selectedProduct">
+
+        <div class="preview-icon">
+          ✦
+        </div>
+
+        <div>
+
+          <span>
+            SELECTED PRODUCT
+          </span>
+
+          <strong>
+            {{ selectedProduct.productName }}
+          </strong>
+
+          <small>
+            {{ selectedProduct.category }}
+            · ₹{{ selectedProduct.sellingPrice }}
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- ERROR -->
+
+      <div
+        class="form-message error"
+        *ngIf="errorMessage">
+
+        {{ errorMessage }}
+
+      </div>
+
+
+      <!-- GENERATE -->
+
+      <button
+        type="button"
+        class="generate-button"
+        (click)="generateContent()"
+        [disabled]="isGenerating">
+
+        <span *ngIf="!isGenerating">
+          ✦ Generate Content with AI
+        </span>
+
+        <span *ngIf="isGenerating">
+          ✦ Generating...
+        </span>
+
+        <span>→</span>
+
+      </button>
+
+    </section>
+
+
+    <!-- ================= WHAT AI DOES ================= -->
+
+    <section class="features-section">
+
+      <div class="section-heading">
+
+        <span class="section-label">
+          AI CAPABILITIES
+        </span>
+
+        <h2>
+          What can AI <span>create?</span>
+        </h2>
+
+      </div>
+
+
+      <div class="feature-grid">
+
+        <div class="feature-card">
+
+          <div class="feature-icon">
+            📱
+          </div>
+
+          <h3>
+            Social Media
+          </h3>
+
+          <p>
+            Create engaging captions and promotional posts
+            for your social media channels.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div class="feature-icon">
+            ✍️
+          </div>
+
+          <h3>
+            Product Descriptions
+          </h3>
+
+          <p>
+            Turn basic product information into compelling
+            descriptions that highlight customer benefits.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div class="feature-icon">
+            💬
+          </div>
+
+          <h3>
+            Customer Promotions
+          </h3>
+
+          <p>
+            Create promotional messages designed to attract
+            customers and encourage purchases.
+          </p>
+
+        </div>
+
+
+        <div class="feature-card">
+
+          <div class="feature-icon">
+            📣
+          </div>
+
+          <h3>
+            Advertisements
+          </h3>
+
+          <p>
+            Generate short and persuasive advertising copy
+            for your products and campaigns.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= AI RESULT ================= -->
+
+    <section
+      class="result-section"
+      *ngIf="hasGenerated">
+
+      <div class="result-header">
+
+        <div>
+
+          <span class="section-label">
+            AI GENERATED CONTENT
+          </span>
+
+          <h2>
+            Your <span>marketing content</span>
+          </h2>
+
+        </div>
+
+        <span class="ai-status">
+          ✦ AI Ready
+        </span>
+
+      </div>
+
+
+      <!-- MAIN CONTENT -->
+
+      <div class="generated-content-card">
+
+        <div class="result-card-top">
+
+          <div>
+
+            <span class="card-label">
+              {{ contentType }}
+            </span>
+
+            <h3>
+              {{ selectedProduct?.productName }}
+            </h3>
+
+          </div>
+
+          <button
+            type="button"
+            class="copy-button"
+            (click)="copyContent(generatedContent)">
+
+            Copy
+
+          </button>
+
+        </div>
+
+
+        <div class="content-output">
+
+          {{ generatedContent }}
+
+        </div>
+
+      </div>
+
+
+      <!-- HEADLINE -->
+
+      <div class="result-grid">
+
+        <div class="result-card">
+
+          <span class="result-card-label">
+            HEADLINE
+          </span>
+
+          <h3>
+            {{ headline }}
+          </h3>
+
+          <button
+            type="button"
+            class="small-copy-button"
+            (click)="copyContent(headline)">
+
+            Copy
+
+          </button>
+
+        </div>
+
+
+        <!-- CTA -->
+
+        <div class="result-card">
+
+          <span class="result-card-label">
+            CALL TO ACTION
+          </span>
+
+          <h3>
+            {{ callToAction }}
+          </h3>
+
+          <button
+            type="button"
+            class="small-copy-button"
+            (click)="copyContent(callToAction)">
+
+            Copy
+
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- MARKETING TIPS -->
+
+      <div class="marketing-tips-card">
+
+        <div class="tips-icon">
+          💡
+        </div>
+
+        <div>
+
+          <span class="card-label">
+            AI MARKETING TIP
+          </span>
+
+          <h3>
+            Make your content work harder
+          </h3>
+
+          <p>
+            {{ marketingTips }}
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <!-- HASHTAGS -->
+
+      <div class="hashtags-card">
+
+        <span class="card-label">
+          SUGGESTED HASHTAGS
+        </span>
+
+        <p>
+          {{ hashtags }}
+        </p>
+
+        <button
+          type="button"
+          class="small-copy-button"
+          (click)="copyContent(hashtags)">
+
+          Copy Hashtags
+
+        </button>
+
+      </div>
+
+
+      <!-- TOP RECOMMENDATION -->
+
+      <div class="recommendation-card">
+
+        <div class="recommendation-icon">
+          ✦
+        </div>
+
+        <div>
+
+          <span class="card-label">
+            AI RECOMMENDATION
+          </span>
+
+          <h3>
+            Match your content with your business goal
+          </h3>
+
+          <p>
+            Your content is being created for
+            <strong>{{ marketingGoal }}</strong>.
+            Keep the message focused on the customer action
+            you want to encourage.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= EMPTY STATE ================= -->
+
+    <!-- ================= PROCESSING STATE ================= -->
+
+<section
+  class="empty-content processing-state"
+  *ngIf="isGenerating">
+
+  <div class="processing-icon">
+    ✦
+  </div>
+
+  <h3>
+    AI is creating your content...
+  </h3>
+
+  <p>
+    Analyzing your product and generating marketing content.
+    Please wait a moment.
+  </p>
+
+  <div class="processing-loader">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+</section>
+
+
+<!-- ================= EMPTY STATE ================= -->
+
+<section
+  class="empty-content"
+  *ngIf="!hasGenerated && !isGenerating">
+
+  <div class="empty-icon">
+    ✎
+  </div>
+
+  <h3>
+    Your AI content will appear here
+  </h3>
+
+  <p>
+    Select a product, choose your content preferences
+    and click "Generate Content with AI" to create
+    marketing content for your store.
+  </p>
+
+</section>
+</main>
+  <!-- ================= FOOTER ================= -->
+
+  <footer class="content-footer">
+
+    <strong>
+      ✦ AI Store Doctor
+    </strong>
+
+    <span>
+      AI-powered content creation for smarter retail marketing.
+    </span>
+
+  </footer>
+
+</div>

@@ -1,0 +1,870 @@
+<div class="home-page">
+
+  <!-- =====================================================
+       NAVBAR
+  ====================================================== -->
+
+  <header class="navbar">
+
+    <!-- BRAND -->
+    <div class="brand">
+
+      <div class="brand-icon">
+        ✦
+      </div>
+
+      <div>
+        <h2>AI Store Doctor</h2>
+        <span>Smart Business Assistant</span>
+      </div>
+
+    </div>
+
+
+    <!-- MAIN NAVIGATION -->
+    <nav class="nav-links">
+
+      <a
+        
+        [routerLink]="['/home']"
+        fragment="home">
+        Home
+      </a>
+
+      <a
+     
+        [routerLink]="['/home']"
+        fragment="features">
+        Features
+      </a>
+
+      <a
+      
+        [routerLink]="['/home']"
+        fragment="how-it-works">
+        How It Works
+      </a>
+
+      <a
+     
+        [routerLink]="['/home']"
+        fragment="contact">
+        Contact Us
+      </a>
+
+    </nav>
+    
+    <!-- THREE LINE MENU -->
+    <div class="menu-wrapper">
+
+      <button
+        class="menu-button"
+        type="button"
+        (click)="toggleMenu()"
+        aria-label="Open menu">
+
+        <span></span>
+        <span></span>
+        <span></span>
+
+      </button>
+
+
+      <!-- DROPDOWN MENU -->
+      <div
+        class="menu-dropdown"
+        [class.show]="menuOpen">
+
+        <a
+          routerLink="/profile"
+          (click)="menuOpen = false">
+
+          <span>👤</span>
+          Profile
+
+        </a>
+
+
+        <a
+          routerLink="/dashboard"
+          (click)="menuOpen = false">
+
+          <span>📊</span>
+          Dashboard
+
+        </a>
+
+
+        <a
+          routerLink="/store-setup"
+        >
+
+          <span>🏪</span>
+          Store Setup
+
+        </a>
+
+
+        <a
+          routerLink="/my-store"
+          (click)="menuOpen = false">
+
+          <span>🛍️</span>
+          My Store
+
+        </a>
+
+
+        <a
+          routerLink="/settings"
+          (click)="menuOpen = false">
+
+          <span>⚙️</span>
+          Settings
+
+        </a>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =====================================================
+       MAIN
+  ====================================================== -->
+
+  <main>
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section
+      class="hero"
+      id="home">
+
+      <div class="hero-content">
+
+        <div class="eyebrow">
+          ✦ AI-POWERED BUSINESS INTELLIGENCE
+        </div>
+
+
+        <h1>
+
+          Your Store Has a Story.
+
+          <span>
+            Let AI Help You Understand It.
+          </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+          AI Store Doctor analyzes your products, sales, inventory
+          and market signals to help you understand what's working,
+          what's not, and what you should do next.
+
+        </p>
+
+
+        <div class="hero-actions">
+
+          <a
+            class="primary-button"
+            routerLink="/store-setup">
+
+            Analyze My Store
+
+            <span>
+              →
+            </span>
+
+          </a>
+
+
+          <a
+            class="secondary-button"
+            href="#how-it-works">
+
+            See How It Works
+
+          </a>
+
+        </div>
+
+
+        <div class="trust-line">
+
+          <span>
+            ✓
+          </span>
+
+          Turn business data into actionable decisions
+
+        </div>
+
+      </div>
+
+
+
+      <!-- HERO VISUAL -->
+
+      <div class="hero-visual">
+
+        <div class="visual-card main-card">
+
+          <div class="visual-top">
+
+            <div>
+
+              <span>
+                STORE INTELLIGENCE
+              </span>
+
+              <h3>
+                AI Business Analysis
+              </h3>
+
+            </div>
+
+
+            <div class="ai-badge">
+              AI
+            </div>
+
+          </div>
+
+
+
+          <div class="analysis-flow">
+
+            <div class="flow-item">
+
+              <div class="flow-icon">
+                ▣
+              </div>
+
+              <span>
+                Store Data
+              </span>
+
+            </div>
+
+
+            <div class="flow-line"></div>
+
+
+            <div class="flow-item ai-flow">
+
+              <div class="flow-icon ai-icon">
+                ✦
+              </div>
+
+              <span>
+                AI Analysis
+              </span>
+
+            </div>
+
+
+            <div class="flow-line"></div>
+
+
+            <div class="flow-item">
+
+              <div class="flow-icon">
+                ↗
+              </div>
+
+              <span>
+                Actions
+              </span>
+
+            </div>
+
+          </div>
+
+
+
+          <div class="mini-insight">
+
+            <div class="mini-icon">
+              ✓
+            </div>
+
+
+            <div>
+
+              <strong>
+                Actionable Insights
+              </strong>
+
+              <p>
+                Know what needs your attention.
+              </p>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- FLOATING CARD 1 -->
+
+        <div class="floating-card floating-one">
+
+          <span class="floating-label">
+            PRODUCT HEALTH
+          </span>
+
+          <strong>
+            AI Diagnosis
+          </strong>
+
+          <small>
+            Find what's hurting your sales
+          </small>
+
+        </div>
+
+
+
+        <!-- FLOATING CARD 2 -->
+
+        <div class="floating-card floating-two">
+
+          <span class="floating-label">
+            MARKET SIGNAL
+          </span>
+
+          <strong>
+            Opportunity Found
+          </strong>
+
+          <small>
+            High demand detected
+          </small>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FEATURES
+    ====================================================== -->
+
+    <section
+      class="features-section"
+      id="features">
+
+      <div class="section-heading">
+
+        <span class="section-label">
+          YOUR AI BUSINESS ASSISTANT
+        </span>
+
+
+        <h2>
+
+          Everything you need to
+
+          <span>
+            understand your store.
+          </span>
+
+        </h2>
+
+
+        <p>
+
+          From product performance to market opportunities,
+          AI Store Doctor turns complex business information
+          into simple actions.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="feature-grid">
+
+
+        <!-- PRODUCT DOCTOR -->
+
+        <div class="feature-card">
+
+          <div class="feature-icon doctor">
+            ✦
+          </div>
+
+          <h3>
+            Product Doctor
+          </h3>
+
+          <p>
+
+            Identify products that are underperforming,
+            losing demand or need attention.
+
+          </p>
+
+          <span class="feature-link">
+            Diagnose products →
+          </span>
+
+        </div>
+
+
+
+        <!-- BUSINESS ANALYST -->
+
+        <div class="feature-card">
+
+          <div class="feature-icon analyst">
+            ▥
+          </div>
+
+          <h3>
+            Business Analyst
+          </h3>
+
+          <p>
+
+            Understand sales, inventory and business
+            performance without complicated reports.
+
+          </p>
+
+          <span class="feature-link">
+            Understand your business →
+          </span>
+
+        </div>
+
+
+
+        <!-- MARKET INTELLIGENCE -->
+
+        <div
+          class="feature-card"
+          routerLink="/market-intelligence"
+          style="cursor:pointer">
+
+          <div class="feature-icon market">
+            ↗
+          </div>
+
+          <h3>
+            Market Intelligence
+          </h3>
+
+          <p>
+
+            Discover demand signals, market changes and
+            opportunities that could help your store grow.
+
+          </p>
+
+          <span class="feature-link">
+            Explore opportunities →
+          </span>
+
+        </div>
+
+
+
+        <!-- CONTENT CREATOR -->
+
+        <div class="feature-card">
+
+          <div class="feature-icon creator">
+            ✎
+          </div>
+
+          <h3>
+            AI Content Creator
+          </h3>
+
+          <p>
+
+            Create product descriptions, promotional messages
+            and social media content with AI.
+
+          </p>
+
+          <span class="feature-link">
+            Create content →
+          </span>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         HOW IT WORKS
+    ====================================================== -->
+
+    <section
+      class="how-section"
+      id="how-it-works">
+
+      <div class="section-heading">
+
+        <span class="section-label">
+          HOW IT WORKS
+        </span>
+
+
+        <h2>
+
+          From your data to
+
+          <span>
+            better decisions.
+          </span>
+
+        </h2>
+
+      </div>
+
+
+
+      <div class="steps">
+
+
+        <!-- STEP 1 -->
+
+        <div class="step">
+
+          <div class="step-number">
+            01
+          </div>
+
+
+          <div>
+
+            <h3>
+              Connect your store data
+            </h3>
+
+            <p>
+
+              Provide your product, sales and inventory
+              information.
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- STEP 2 -->
+
+        <div class="step">
+
+          <div class="step-number">
+            02
+          </div>
+
+
+          <div>
+
+            <h3>
+              AI analyzes your business
+            </h3>
+
+            <p>
+
+              AI identifies patterns, risks and opportunities
+              across your store.
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- STEP 3 -->
+
+        <div class="step">
+
+          <div class="step-number">
+            03
+          </div>
+
+
+          <div>
+
+            <h3>
+              Get your Store Health Score
+            </h3>
+
+            <p>
+
+              See your business health through a simple,
+              understandable score.
+
+            </p>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- STEP 4 -->
+
+        <div class="step">
+
+          <div class="step-number">
+            04
+          </div>
+
+
+          <div>
+
+            <h3>
+              Take smarter actions
+            </h3>
+
+            <p>
+
+              Get prioritized recommendations instead of
+              guessing what to do next.
+
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         CONTACT US
+    ====================================================== -->
+
+    <section
+      class="contact-section"
+      id="contact">
+
+      <div class="section-heading">
+
+        <span class="section-label">
+          CONTACT US
+        </span>
+
+
+        <h2>
+
+          Let's build a
+
+          <span>
+            smarter store.
+          </span>
+
+        </h2>
+
+
+        <p>
+
+          Have questions about AI Store Doctor?
+          We're here to help.
+
+        </p>
+
+      </div>
+
+
+
+      <div class="contact-grid">
+
+
+        <!-- EMAIL -->
+
+        <div class="contact-card">
+
+          <div class="contact-icon">
+            ✉
+          </div>
+
+
+          <div>
+
+            <strong>
+              Email
+            </strong>
+
+            <span>
+              support@aistoredoctor.com
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- HELP -->
+
+        <div class="contact-card">
+
+          <div class="contact-icon">
+            ?
+          </div>
+
+
+          <div>
+
+            <strong>
+              Call Support
+            </strong>
+
+            <span>
+              24/7 hr available
+              Toll free no:- 240-5113
+            </span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- AI STORE DOCTOR -->
+
+        <div class="contact-card">
+
+          <div class="contact-icon">
+            ✦
+          </div>
+
+
+          <div>
+
+            <strong>
+              AI Store Doctor
+            </strong>
+
+            <span>
+              Smart business intelligence for retailers.
+            </span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         FINAL CTA
+    ====================================================== -->
+
+    <section class="cta-section">
+
+      <div class="cta-content">
+
+        <div class="cta-icon">
+          ✦
+        </div>
+
+
+        <span class="section-label">
+          READY TO CHECK YOUR STORE?
+        </span>
+
+
+        <h2>
+
+          Let your store data
+
+          <span>
+            work smarter.
+          </span>
+
+        </h2>
+
+
+        <p>
+
+          Start your AI-powered store analysis and discover
+          what your business needs next.
+
+        </p>
+
+
+        <a
+          class="primary-button"
+          routerLink="/store-setup">
+
+          Analyze My Store
+
+          <span>
+            →
+          </span>
+
+        </a>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+  <!-- =====================================================
+       FOOTER
+  ====================================================== -->
+
+  <footer class="footer">
+
+    <div>
+
+      <strong>
+        ✦ AI Store Doctor
+      </strong>
+
+      <span>
+        AI-powered business intelligence for retailers.
+      </span>
+
+    </div>
+
+
+    <p>
+      Built for smarter retail decisions.
+    </p>
+
+  </footer>
+
+</div>

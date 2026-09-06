@@ -1,0 +1,503 @@
+<div class="products-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/dashboard">← Back to Dashboard</a>
+  </nav>
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="products-header">
+    <div>
+      <span class="section-label">PRODUCT DOCTOR</span>
+
+      <h1>
+        Add your <span>product data.</span>
+      </h1>
+
+      <p>
+        Give AI Store Doctor some basic product information
+        to understand its performance.
+      </p>
+    </div>
+
+  </header>
+
+  <main class="products-main">
+
+<!-- ================= PRODUCT FORM ================= -->
+
+<section class="product-form-card">
+
+  <div class="form-header">
+    <div>
+      <span class="form-label">
+        PRODUCT INFORMATION
+      </span>
+
+      <h2>Add Product</h2>
+
+      <p>
+        Enter the product's sales and inventory details.
+      </p>
+    </div>
+
+    <div class="form-icon">
+      ✦
+    </div>
+  </div>
+
+
+  <form>
+
+    <!-- PRODUCT NAME -->
+
+    <div class="form-group">
+      <label for="productName">
+        Product Name
+      </label>
+
+      <input
+        id="productName"
+        name="productName"
+        type="text"
+        placeholder="e.g. Cotton Kurti"
+        [(ngModel)]="productName"
+      />
+    </div>
+
+
+    <!-- CATEGORY -->
+
+    <div class="form-group">
+      <label for="category">
+        Category
+      </label>
+
+      <input
+        id="category"
+        name="category"
+        type="text"
+        placeholder="e.g. Fashion"
+        [(ngModel)]="category"
+      />
+    </div>
+
+
+    <!-- PRICE -->
+
+    <div class="two-column">
+
+      <div class="form-group">
+        <label for="costPrice">
+          Cost Price (₹)
+        </label>
+
+        <input
+          id="costPrice"
+          name="costPrice"
+          type="number"
+          min="0"
+          placeholder="500"
+          [(ngModel)]="costPrice"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label for="sellingPrice">
+          Selling Price (₹)
+        </label>
+
+        <input
+          id="sellingPrice"
+          name="sellingPrice"
+          type="number"
+          min="0"
+          placeholder="899"
+          [(ngModel)]="sellingPrice"
+        />
+      </div>
+
+    </div>
+
+
+    <!-- STOCK + SALES -->
+
+    <div class="two-column">
+
+      <div class="form-group">
+        <label for="stockQuantity">
+          Stock Quantity
+        </label>
+
+        <input
+          id="stockQuantity"
+          name="stockQuantity"
+          type="number"
+          min="0"
+          placeholder="80"
+          [(ngModel)]="stockQuantity"
+        />
+      </div>
+
+
+      <div class="form-group">
+        <label for="unitsSold">
+          Units Sold
+        </label>
+
+        <input
+          id="unitsSold"
+          name="unitsSold"
+          type="number"
+          min="0"
+          placeholder="25"
+          [(ngModel)]="unitsSold"
+        />
+      </div>
+
+    </div>
+
+
+    <!-- SALES PERIOD -->
+
+    <div class="form-group">
+
+      <label for="salesPeriod">
+        Sales Period
+      </label>
+
+      <select
+        id="salesPeriod"
+        name="salesPeriod"
+        [(ngModel)]="salesPeriod"
+      >
+
+        <option value="Last 7 Days">
+          Last 7 Days
+        </option>
+
+        <option value="Last 30 Days">
+          Last 30 Days
+        </option>
+
+        <option value="Last 90 Days">
+          Last 90 Days
+        </option>
+
+        <option value="Last 6 Months">
+          Last 6 Months
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- ADD BUTTON -->
+
+    <button
+      type="button"
+      class="add-product-button"
+      (click)="addProduct()"
+    >
+      Add Product
+      <span>→</span>
+    </button>
+
+
+    <!-- MESSAGE -->
+
+    <div
+      *ngIf="message"
+      class="form-message"
+      [class.success]="messageType === 'success'"
+      [class.error]="messageType === 'error'"
+    >
+      {{ message }}
+    </div>
+
+  </form>
+
+</section>
+
+
+<!-- ================= INFORMATION CARD ================= -->
+
+<section class="info-card">
+
+  <div class="info-icon">
+    ✦
+  </div>
+
+  <h3>
+    Why do we need this data?
+  </h3>
+
+  <p>
+    AI Store Doctor will use your product's sales,
+    pricing and inventory information to identify
+    products that may need attention.
+  </p>
+
+</section>
+
+  </main>
+
+  <!-- =====================================================
+       PRODUCT PERFORMANCE
+  ====================================================== -->
+
+  <section
+    class="product-list-section"
+    *ngIf="products.length > 0"
+  >
+
+<!-- LIST HEADER -->
+
+<div class="product-list-header">
+
+  <div>
+
+    <span class="section-label">
+      YOUR PRODUCTS
+    </span>
+
+    <h2>
+      Product <span>Performance</span>
+    </h2>
+
+    <p>
+      AI Store Doctor has analyzed your product data.
+    </p>
+
+  </div>
+
+
+  <div class="product-count">
+
+    {{ products.length }}
+
+    <span>
+      {{ products.length === 1 ? 'Product' : 'Products' }}
+    </span>
+
+  </div>
+
+</div>
+
+
+<!-- ================= PRODUCT TABLE ================= -->
+
+<div class="product-table">
+
+  <!-- TABLE HEADER -->
+
+  <div class="product-table-header">
+
+    <span>PRODUCT</span>
+    <span>CATEGORY</span>
+    <span>PRICE</span>
+    <span>STOCK</span>
+    <span>SOLD</span>
+    <span>PROFIT</span>
+    <span>SALES RATE</span>
+    <span>HEALTH</span>
+    <span>ACTION</span>
+
+  </div>
+
+
+  <!-- PRODUCT ROW -->
+
+  <div
+    class="product-row"
+    *ngFor="let product of products"
+  >
+
+    <!-- PRODUCT -->
+
+    <div class="product-name">
+
+      <div class="product-icon">
+        ✦
+      </div>
+
+      <strong>
+        {{ product.productName }}
+      </strong>
+
+    </div>
+
+
+    <!-- CATEGORY -->
+
+    <span class="category-value">
+      {{ product.category }}
+    </span>
+
+
+    <!-- PRICE -->
+
+    <strong class="price-value">
+      ₹{{ product.sellingPrice }}
+    </strong>
+
+
+    <!-- STOCK -->
+
+    <span>
+      {{ product.stockQuantity }}
+    </span>
+
+
+    <!-- SOLD -->
+
+    <span>
+      {{ product.unitsSold }}
+    </span>
+
+
+    <!-- PROFIT -->
+
+    <strong
+      class="profit-value"
+      [class.loss]="getProfit(product) < 0"
+    >
+      ₹{{ getProfit(product) }}
+    </strong>
+
+
+    <!-- SALES RATE -->
+
+    <div class="sales-rate">
+
+      <strong>
+        {{ getSalesRate(product) }}%
+      </strong>
+
+      <div class="mini-progress">
+
+        <div
+          class="mini-progress-fill"
+          [style.width.%]="getSalesRate(product)"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <!-- HEALTH -->
+
+    <div class="health-status">
+
+      <span
+        class="health-dot"
+        [class.healthy]="getHealth(product) >= 75"
+        [class.attention]="
+          getHealth(product) >= 50 &&
+          getHealth(product) < 75
+        "
+        [class.critical]="getHealth(product) < 50"
+      ></span>
+
+
+      <div>
+
+        <strong>
+          {{ getHealth(product) }}/100
+        </strong>
+
+        <small>
+          {{ getHealthStatus(product) }}
+        </small>
+
+      </div>
+
+    </div>
+
+
+    <!-- DELETE -->
+
+    <button
+      type="button"
+      class="delete-button"
+      (click)="deleteProduct(product._id || product.id)"
+      aria-label="Delete product"
+    >
+      ×
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- ================= ANALYSIS SUMMARY ================= -->
+
+<div class="analysis-summary">
+
+  <div class="summary-icon">
+    ✦
+  </div>
+
+
+  <div>
+
+    <span class="summary-label">
+      PRODUCT DOCTOR
+    </span>
+
+    <h3>
+      Basic product analysis is ready.
+    </h3>
+
+
+    <p>
+      Your product data has been converted into
+      performance indicators. The next step is to
+      let AI analyze these indicators and provide
+      business recommendations.
+    </p>
+
+
+    <button
+      type="button"
+      class="ai-analysis-button"
+      routerLink="/ai-analysis"
+    >
+      ✦ Analyze Products with AI
+      <span>→</span>
+    </button>
+
+  </div>
+
+</div>
+
+  </section>
+
+  <!-- ================= EMPTY STATE ================= -->
+
+  <section
+    class="empty-products"
+    *ngIf="products.length === 0"
+  >
+
+<div class="empty-icon">
+  ✦
+</div>
+
+<h3>
+  No products added yet
+</h3>
+
+<p>
+  Add your first product above to start
+  analyzing its performance.
+</p>
+
+  </section>
+
+</div>

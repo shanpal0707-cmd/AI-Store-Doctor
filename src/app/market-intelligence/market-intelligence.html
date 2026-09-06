@@ -1,0 +1,368 @@
+<div class="market-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/dashboard">← Back to Dashboard</a>
+  </nav>
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="market-header">
+    <div>
+      <span class="section-label">MARKET INTELLIGENCE</span>
+      <h1>Market <span>Opportunities</span></h1>
+      <p>
+        Discover demand signals, pricing opportunities and market trends
+        that could help your store grow.
+      </p>
+    </div>
+    <div class="ai-badge">↗ AI</div>
+  </header>
+
+
+  <!-- ================= ACTION CARD ================= -->
+
+  <section class="analysis-card">
+
+    <div class="analysis-icon">↗</div>
+
+    <div class="analysis-content">
+      <span class="card-label">AI MARKET ANALYSIS</span>
+      <h2>Analyze your market opportunities</h2>
+      <p>
+        Gemini AI will examine your product portfolio to identify demand signals,
+        pricing opportunities, category trends and prioritised recommendations
+        to help you grow your store.
+      </p>
+
+      <button
+        type="button"
+        class="analyze-button"
+        [disabled]="isLoading"
+        (click)="runAnalysis()">
+
+        @if (isLoading) {
+          <span class="button-spinner">⟳</span>
+          Analyzing market data...
+        } @else {
+          ↗ Run Market Intelligence
+          <span>→</span>
+        }
+
+      </button>
+    </div>
+
+  </section>
+
+
+  <!-- ================= WHAT AI CHECKS ================= -->
+
+  <section class="checks-section">
+
+    <div class="section-heading">
+      <span class="section-label">WHAT AI ANALYZES</span>
+      <h2>Market <span>intelligence areas</span></h2>
+    </div>
+
+    <div class="check-grid">
+
+      <div class="check-card">
+        <div class="check-icon">📈</div>
+        <h3>Demand Signals</h3>
+        <p>Identify which products have strong demand potential and growing market interest.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">💰</div>
+        <h3>Pricing Opportunities</h3>
+        <p>Discover where smarter pricing could increase your revenue and margins.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">🗂️</div>
+        <h3>Category Trends</h3>
+        <p>Understand which product categories have the most growth potential.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">💡</div>
+        <h3>AI Recommendations</h3>
+        <p>Get prioritised, actionable steps to capitalise on your market opportunities.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- ================= RESULT SECTION ================= -->
+
+  <section class="result-section">
+
+    <div class="result-header">
+      <div>
+        <span class="section-label">AI RESULT</span>
+        <h2>Market <span>Intelligence Report</span></h2>
+      </div>
+
+      @if (analysisComplete && result) {
+        <span class="ai-status success-status">↗ Analysis Complete</span>
+      }
+    </div>
+
+
+    <!-- INITIAL STATE -->
+    @if (!analysisStarted) {
+
+      <div class="empty-result">
+        <div class="empty-icon">↗</div>
+        <h3>Your market intelligence report will appear here</h3>
+        <p>
+          Add your products and click "Run Market Intelligence" to discover
+          demand signals and growth opportunities for your store.
+        </p>
+      </div>
+
+    }
+
+
+    <!-- LOADING STATE -->
+    @if (isLoading) {
+
+      <div class="loading-card">
+        <div class="loading-icon">↗</div>
+        <div>
+          <span class="card-label">GEMINI AI</span>
+          <h3>Analyzing market opportunities...</h3>
+          <p>Examining demand signals, pricing trends and category opportunities.</p>
+        </div>
+      </div>
+
+    }
+
+
+    <!-- ERROR STATE -->
+    @if (!isLoading && analysisComplete && errorMessage) {
+
+      <div class="error-card">
+        <div class="error-icon">⚠</div>
+        <div>
+          <strong>Analysis could not be completed</strong>
+          <p>{{ errorMessage }}</p>
+          <button type="button" class="retry-button" (click)="runAnalysis()">
+            Try Again
+          </button>
+        </div>
+      </div>
+
+    }
+
+
+    <!-- SUCCESS RESULT -->
+    @if (!isLoading && analysisComplete && !errorMessage && result) {
+
+      <!-- MARKET OVERVIEW -->
+      <div class="summary-card">
+        <div class="summary-top">
+          <div class="summary-icon">↗</div>
+          <div>
+            <span class="card-label">GEMINI MARKET OVERVIEW</span>
+            <h3>Market Position Analysis</h3>
+          </div>
+        </div>
+        <div class="summary-text">{{ marketOverview }}</div>
+      </div>
+
+
+      <!-- SCORE + OPPORTUNITY + SEASONAL CARDS -->
+      <div class="result-grid">
+
+        <div class="result-card score-card">
+          <span class="result-card-label">MARKET OPPORTUNITY SCORE</span>
+          <strong [ngClass]="getScoreClass()">
+            {{ marketScore }}<small>/100</small>
+          </strong>
+          <div class="score-bar">
+            <div class="score-fill" [style.width.%]="marketScore"></div>
+          </div>
+          <p>{{ getScoreLabel() }} market opportunity.</p>
+        </div>
+
+        <div class="result-card opportunity-card">
+          <span class="result-card-label">TOP OPPORTUNITY</span>
+          <p class="opportunity-text">{{ topOpportunity }}</p>
+        </div>
+
+        <div class="result-card seasonal-card">
+          <span class="result-card-label">SEASONAL INSIGHT</span>
+          <p class="seasonal-text">{{ seasonalInsight }}</p>
+        </div>
+
+      </div>
+
+
+      <!-- DEMAND SIGNALS -->
+      @if (demandSignals.length > 0) {
+
+        <div class="signals-card">
+          <div class="signals-header">
+            <div class="signals-icon">📈</div>
+            <div>
+              <span class="card-label">DEMAND SIGNALS</span>
+              <h3>Current market demand observations</h3>
+            </div>
+          </div>
+          <ul class="signals-list">
+            @for (signal of demandSignals; track signal) {
+              <li>
+                <span class="signal-dot"></span>
+                {{ signal }}
+              </li>
+            }
+          </ul>
+        </div>
+
+      }
+
+
+      <!-- TRENDING PRODUCTS -->
+      @if (trendingProducts.length > 0) {
+
+        <div class="section-heading trending-heading">
+          <span class="section-label">HIGH-DEMAND PRODUCTS</span>
+          <h2>Products with <span>strong market potential</span></h2>
+        </div>
+
+        <div class="trending-grid">
+          @for (product of trendingProducts; track product.productName) {
+            <div class="trending-card">
+              <div class="trending-top">
+                <div class="trending-initial">
+                  {{ product.productName.charAt(0) }}
+                </div>
+                <div>
+                  <strong>{{ product.productName }}</strong>
+                  <span>{{ product.category }}</span>
+                </div>
+                <div class="trending-badge">High Demand</div>
+              </div>
+              <div class="insight-row">
+                <div class="insight-heading">
+                  <span class="insight-icon">📈</span>
+                  <div>
+                    <span class="insight-label">DEMAND SIGNAL</span>
+                    <strong>Market Interest</strong>
+                  </div>
+                </div>
+                <p>{{ product.demandSignal }}</p>
+              </div>
+              <div class="action-row">
+                <span>💡</span>
+                <div>
+                  <span class="insight-label">OPPORTUNITY</span>
+                  <p>{{ product.opportunity }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+      }
+
+
+      <!-- PRICING OPPORTUNITIES -->
+      @if (pricingOpportunities.length > 0) {
+
+        <div class="section-heading pricing-heading">
+          <span class="section-label">PRICING OPPORTUNITIES</span>
+          <h2>Optimise your <span>pricing strategy</span></h2>
+        </div>
+
+        <div class="pricing-grid">
+          @for (item of pricingOpportunities; track item.productName) {
+            <div class="pricing-card">
+              <div class="pricing-top">
+                <strong>{{ item.productName }}</strong>
+                <span class="current-price">₹{{ item.currentPrice }}</span>
+              </div>
+              <div class="pricing-body">
+                <div class="pricing-row">
+                  <span class="insight-icon">💰</span>
+                  <div>
+                    <span class="insight-label">PRICING SUGGESTION</span>
+                    <p>{{ item.suggestion }}</p>
+                  </div>
+                </div>
+                <div class="pricing-impact">
+                  <span>⟶</span>
+                  <p>{{ item.potentialImpact }}</p>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+
+      }
+
+
+      <!-- CATEGORY OPPORTUNITIES -->
+      @if (categoryOpportunities.length > 0) {
+
+        <div class="section-heading category-heading">
+          <span class="section-label">CATEGORY OPPORTUNITIES</span>
+          <h2>Category-level <span>insights</span></h2>
+        </div>
+
+        <div class="category-grid">
+          @for (cat of categoryOpportunities; track cat.category) {
+            <div class="category-card">
+              <div class="category-header">
+                <div class="category-icon">🗂️</div>
+                <strong>{{ cat.category }}</strong>
+              </div>
+              <p class="category-insight">{{ cat.insight }}</p>
+              <div class="category-rec">
+                <span class="insight-label">RECOMMENDED ACTION</span>
+                <p>{{ cat.recommendation }}</p>
+              </div>
+            </div>
+          }
+        </div>
+
+      }
+
+
+      <!-- AI RECOMMENDATIONS -->
+      @if (aiRecommendations.length > 0) {
+
+        <div class="recommendation-card">
+          <div class="recommendation-icon">💡</div>
+          <div>
+            <span class="card-label">AI RECOMMENDATIONS</span>
+            <h3>Prioritised actions for growth</h3>
+            <ol class="rec-list">
+              @for (rec of aiRecommendations; track rec; let i = $index) {
+                <li>
+                  <span class="rec-number">{{ i + 1 }}</span>
+                  {{ rec }}
+                </li>
+              }
+            </ol>
+          </div>
+        </div>
+
+      }
+
+    }
+
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer class="content-footer">
+    <strong>↗ AI Store Doctor</strong>
+    <span>AI-powered market intelligence for smarter retail decisions.</span>
+  </footer>
+
+</div>

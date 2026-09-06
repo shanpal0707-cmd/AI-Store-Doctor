@@ -1,0 +1,400 @@
+<div class="setup-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/home">← Back to Home</a>
+  </nav>
+
+  <!-- ================= HEADER ================= -->
+
+  <header class="setup-header">
+
+    <div class="brand">
+
+      <div class="brand-icon">
+        ✦
+      </div>
+
+      <div>
+        <h2>AI Store Doctor</h2>
+        <span>Smart Business Assistant</span>
+      </div>
+
+    </div>
+
+    <div class="step-indicator">
+      <span class="active">01</span>
+      <span>Store Setup</span>
+    </div>
+
+  </header>
+
+
+  <!-- ================= MAIN ================= -->
+
+  <main class="setup-main">
+
+    <div class="setup-container">
+
+
+      <!-- ================= LEFT CONTENT ================= -->
+
+      <section class="intro-section">
+
+        <div class="eyebrow">
+          ✦ LET'S GET STARTED
+        </div>
+
+        <h1>
+          Tell us about
+          <span>your store.</span>
+        </h1>
+
+        <p>
+          Give AI Store Doctor a few details about your business.
+          We'll use this information to understand your store and
+          provide more relevant insights.
+        </p>
+
+
+        <div class="benefits">
+
+          <div class="benefit">
+
+            <div class="benefit-icon">
+              ✦
+            </div>
+
+            <div>
+              <strong>Personalized Analysis</strong>
+              <span>Insights based on your business.</span>
+            </div>
+
+          </div>
+
+
+          <div class="benefit">
+
+            <div class="benefit-icon">
+              ↗
+            </div>
+
+            <div>
+              <strong>Smarter Decisions</strong>
+              <span>Know what deserves your attention.</span>
+            </div>
+
+          </div>
+
+
+          <div class="benefit">
+
+            <div class="benefit-icon">
+              ✓
+            </div>
+
+            <div>
+              <strong>Simple Recommendations</strong>
+              <span>Turn complex data into clear actions.</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ================= FORM CARD ================= -->
+
+      <section class="form-card">
+
+        <div class="form-header">
+
+          <div>
+
+            <span class="form-label">
+              STORE INFORMATION
+            </span>
+
+            <h2>
+              Set up your store
+            </h2>
+
+            <p>
+              This will help us understand your business better.
+            </p>
+
+          </div>
+
+          <div class="form-icon">
+            ▣
+          </div>
+
+        </div>
+
+
+
+        <!-- ================= FORM ================= -->
+
+        <form>
+
+
+          <!-- STORE NAME -->
+
+          <div class="form-group">
+
+            <label for="storeName">
+              Store Name
+            </label>
+
+            <input
+              id="storeName"
+              name="storeName"
+              type="text"
+              placeholder="e.g. Shivani Fashion Store"
+              [(ngModel)]="storeName"
+            />
+
+          </div>
+
+
+
+          <!-- BUSINESS TYPE -->
+
+          <div class="form-group">
+
+            <label for="businessType">
+              Business Type
+            </label>
+
+            <select
+              id="businessType"
+              name="businessType"
+              [(ngModel)]="businessType">
+
+              <option
+                value=""
+                disabled>
+                Select your business type
+              </option>
+
+              <option value="Fashion & Clothing">
+                Fashion & Clothing
+              </option>
+
+              <option value="Electronics">
+                Electronics
+              </option>
+
+              <option value="Grocery & Food">
+                Grocery & Food
+              </option>
+
+              <option value="Beauty & Personal Care">
+                Beauty & Personal Care
+              </option>
+
+              <option value="Home & Lifestyle">
+                Home & Lifestyle
+              </option>
+
+              <option value="Pharmacy">
+                Pharmacy
+              </option>
+
+              <option value="Other">
+                Other
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- STORE SIZE -->
+
+          <div class="form-group">
+
+            <label>
+              Store Size
+            </label>
+
+            <div class="option-grid">
+
+
+              <!-- SMALL -->
+
+              <label class="option-card">
+
+                <input
+                  type="radio"
+                  name="storeSize"
+                  value="small"
+                  [(ngModel)]="storeSize"
+                />
+
+                <span>
+
+                  <strong>
+                    Small
+                  </strong>
+
+                  <small>
+                    1–50 products
+                  </small>
+
+                </span>
+
+              </label>
+
+
+
+              <!-- MEDIUM -->
+
+              <label class="option-card">
+
+                <input
+                  type="radio"
+                  name="storeSize"
+                  value="medium"
+                  [(ngModel)]="storeSize"
+                />
+
+                <span>
+
+                  <strong>
+                    Medium
+                  </strong>
+
+                  <small>
+                    51–500 products
+                  </small>
+
+                </span>
+
+              </label>
+
+
+
+              <!-- LARGE -->
+
+              <label class="option-card">
+
+                <input
+                  type="radio"
+                  name="storeSize"
+                  value="large"
+                  [(ngModel)]="storeSize"
+                />
+
+                <span>
+
+                  <strong>
+                    Large
+                  </strong>
+
+                  <small>
+                    500+ products
+                  </small>
+
+                </span>
+
+              </label>
+
+            </div>
+
+          </div>
+
+
+
+          <!-- PRIMARY GOAL -->
+
+          <div class="form-group">
+
+            <label for="goal">
+              What do you want AI to help with?
+            </label>
+
+            <select
+              id="goal"
+              name="primaryGoal"
+              [(ngModel)]="primaryGoal">
+
+              <option
+                value=""
+                disabled>
+                Select your primary goal
+              </option>
+
+              <option value="Increase Sales">
+                Increase Sales
+              </option>
+
+              <option value="Improve Inventory">
+                Improve Inventory
+              </option>
+
+              <option value="Understand Product Performance">
+                Understand Product Performance
+              </option>
+
+              <option value="Find Market Opportunities">
+                Find Market Opportunities
+              </option>
+
+              <option value="Improve Marketing">
+                Improve Marketing
+              </option>
+
+              <option value="Overall Business Analysis">
+                Overall Business Analysis
+              </option>
+
+            </select>
+
+          </div>
+
+
+
+          <!-- ================= BUTTON ================= -->
+
+          <button
+            type="button"
+            class="continue-button"
+            (click)="continueToAIAnalysis()">
+
+            Continue to AI Analysis
+
+            <span>
+              →
+            </span>
+
+          </button>
+
+
+
+          <!-- SECURITY NOTE -->
+
+          <div class="secure-note">
+
+            <span>
+              ✓
+            </span>
+
+            Your business information stays private.
+
+          </div>
+
+
+        </form>
+
+      </section>
+
+    </div>
+
+  </main>
+
+</div>

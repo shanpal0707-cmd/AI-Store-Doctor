@@ -1,0 +1,155 @@
+<div class="settings-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/home">← Back to Home</a>
+  </nav>
+
+  <!-- HEADER -->
+
+  <header class="settings-header">
+    <div>
+      <span class="section-label">PREFERENCES</span>
+      <h1>App <span>Settings</span></h1>
+      <p>Manage your notification preferences, appearance and account.</p>
+    </div>
+    <div class="ai-badge">⚙️</div>
+  </header>
+
+
+  <main class="settings-main">
+
+
+    <!-- ── NOTIFICATIONS ──────────────────────────────────── -->
+
+    <div class="settings-card">
+
+      <div class="settings-card-header">
+        <span class="card-label">NOTIFICATIONS</span>
+      </div>
+
+      <div class="settings-row">
+
+        <div class="setting-info">
+          <strong>Enable Notifications</strong>
+          <span>Receive updates and alerts about your store.</span>
+        </div>
+
+        <label class="toggle">
+          <input
+            type="checkbox"
+            [(ngModel)]="notificationsEnabled"
+          />
+          <span class="toggle-track">
+            <span class="toggle-thumb"></span>
+          </span>
+        </label>
+
+      </div>
+
+    </div>
+
+
+    <!-- ── APPEARANCE ─────────────────────────────────────── -->
+
+    <div class="settings-card">
+
+      <div class="settings-card-header">
+        <span class="card-label">APPEARANCE</span>
+      </div>
+
+      <div class="settings-row">
+
+        <div class="setting-info">
+          <strong>Theme</strong>
+          <span>Choose your preferred display style.</span>
+        </div>
+
+        <div class="appearance-options">
+
+          <label class="appearance-option">
+            <input
+              type="radio"
+              name="appearance"
+              value="default"
+              [(ngModel)]="appearance"
+            />
+            <span [class.selected]="appearance === 'default'">Default</span>
+          </label>
+
+          <label class="appearance-option">
+            <input
+              type="radio"
+              name="appearance"
+              value="light"
+              [(ngModel)]="appearance"
+            />
+            <span [class.selected]="appearance === 'light'">Light</span>
+          </label>
+
+          <label class="appearance-option">
+            <input
+              type="radio"
+              name="appearance"
+              value="dark"
+              [(ngModel)]="appearance"
+            />
+            <span [class.selected]="appearance === 'dark'">Dark</span>
+          </label>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ── SAVE ───────────────────────────────────────────── -->
+
+    <div class="save-row">
+
+      <button type="button" class="save-button" (click)="saveSettings()">
+        Save Settings
+      </button>
+
+      @if (savedMessage) {
+        <span class="saved-message">✓ {{ savedMessage }}</span>
+      }
+
+    </div>
+
+
+    <!-- ── ACCOUNT ────────────────────────────────────────── -->
+
+    <div class="settings-card account-card">
+
+      <div class="settings-card-header">
+        <span class="card-label">ACCOUNT</span>
+      </div>
+
+      <div class="settings-row">
+
+        <div class="setting-info">
+          <strong>Log Out</strong>
+          <span>Sign out of your AI Store Doctor account.</span>
+        </div>
+
+        <button type="button" class="logout-button" (click)="logout()">
+          Log Out
+        </button>
+
+      </div>
+
+    </div>
+
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="settings-footer">
+    <strong>✦ AI Store Doctor</strong>
+    <span>Smart business management for retail stores.</span>
+  </footer>
+
+</div>

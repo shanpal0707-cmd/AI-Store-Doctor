@@ -1,0 +1,130 @@
+<div class="profile-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/home">← Back to Home</a>
+  </nav>
+
+  <!-- HEADER -->
+
+  <header class="profile-header">
+    <div>
+      <span class="section-label">ACCOUNT</span>
+      <h1>My <span>Profile</span></h1>
+      <p>Your account information and store owner details.</p>
+    </div>
+    <div class="ai-badge">👤</div>
+  </header>
+
+
+  <main class="profile-main">
+
+    <!-- NO DATA STATE -->
+    @if (!hasData) {
+
+      <div class="empty-card">
+        <div class="empty-icon">👤</div>
+        <h3>No profile information available</h3>
+        <p>
+          Complete Store Setup to associate profile information with your account.
+        </p>
+        <a class="action-button" routerLink="/store-setup">
+          Go to Store Setup →
+        </a>
+      </div>
+
+    }
+
+
+    <!-- PROFILE DATA -->
+    @if (hasData) {
+
+      <!-- AVATAR + NAME -->
+      <div class="avatar-card">
+
+        <div class="avatar-circle">
+          {{ storeName.charAt(0).toUpperCase() }}
+        </div>
+
+        <div class="avatar-info">
+          <h2>{{ storeName }}</h2>
+          <span class="owner-label">Store Owner</span>
+        </div>
+
+      </div>
+
+
+      <!-- ACCOUNT INFORMATION -->
+      <div class="info-card">
+
+        <div class="info-card-header">
+          <span class="card-label">ACCOUNT INFORMATION</span>
+        </div>
+
+        <div class="info-rows">
+
+          <div class="info-row">
+            <span class="info-key">Full Name</span>
+            <span class="info-value">{{ fullName || storeName }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-key">Email Address</span>
+            <span class="info-value">{{ email || '—' }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-key">Business Type</span>
+            <span class="info-value">{{ businessType }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-key">Store Size</span>
+            <span class="info-value">{{ storeSize }}</span>
+          </div>
+
+          <div class="info-row">
+            <span class="info-key">Primary Goal</span>
+            <span class="info-value">{{ primaryGoal }}</span>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- QUICK LINKS -->
+      <div class="quick-links">
+
+        <a class="quick-link-card" routerLink="/store-setup">
+          <span class="quick-icon">⚙️</span>
+          <div>
+            <strong>Update Store Setup</strong>
+            <span>Edit your store details</span>
+          </div>
+          <span class="link-arrow">→</span>
+        </a>
+
+        <a class="quick-link-card" routerLink="/dashboard">
+          <span class="quick-icon">📊</span>
+          <div>
+            <strong>Go to Dashboard</strong>
+            <span>View your store overview</span>
+          </div>
+          <span class="link-arrow">→</span>
+        </a>
+
+      </div>
+
+    }
+
+  </main>
+
+
+  <!-- FOOTER -->
+  <footer class="profile-footer">
+    <strong>✦ AI Store Doctor</strong>
+    <span>Smart business management for retail stores.</span>
+  </footer>
+
+</div>

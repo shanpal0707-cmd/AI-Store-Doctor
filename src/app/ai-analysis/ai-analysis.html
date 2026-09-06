@@ -1,0 +1,450 @@
+<div class="ai-analysis-page">
+
+  <!-- BACK NAV -->
+  <nav class="back-nav">
+    <a class="back-btn" routerLink="/dashboard">← Back to Dashboard</a>
+  </nav>
+
+  <!-- HEADER -->
+
+  <header class="analysis-header">
+    <div>
+      <span class="section-label">PRODUCT DOCTOR</span>
+      <h1>AI <span>Product Analysis</span></h1>
+      <p>
+        Let AI Store Doctor analyze your product performance
+        and identify what needs your attention.
+      </p>
+    </div>
+
+    <div class="ai-badge">✦ AI</div>
+
+  </header>
+
+  <!-- ANALYSIS ACTION -->
+
+  <section class="analysis-card">
+
+    <div class="analysis-icon">✦</div>
+
+    <div class="analysis-content">
+      <span class="card-label">AI BUSINESS INTELLIGENCE</span>
+
+      <h2>Analyze your products</h2>
+
+      <p>
+        Gemini AI will examine your sales, pricing, profit and
+        inventory data to identify product-level risks,
+        opportunities and recommended actions.
+      </p>
+
+      <button
+        type="button"
+        class="analyze-button"
+        [disabled]="isLoading"
+        (click)="analyzeProducts()">
+
+        @if (isLoading) {
+          <span class="button-spinner">⟳</span>
+          Analyzing with Gemini AI...
+        } @else {
+          ✦ Analyze Products with AI
+          <span>→</span>
+        }
+
+      </button>
+    </div>
+
+  </section>
+
+  <!-- WHAT AI CHECKS -->
+
+  <section class="checks-section">
+
+    <div class="section-heading">
+      <span class="section-label">AI CHECKS</span>
+
+      <h2>
+        What will AI <span>analyze?</span>
+      </h2>
+    </div>
+
+    <div class="check-grid">
+
+      <div class="check-card">
+        <div class="check-icon">📈</div>
+        <h3>Sales Performance</h3>
+        <p>Identify products with strong or weak sales performance.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">💰</div>
+        <h3>Profitability</h3>
+        <p>Understand which products generate better profit margins.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">📦</div>
+        <h3>Inventory Risk</h3>
+        <p>Detect products with excess stock or potential stock problems.</p>
+      </div>
+
+      <div class="check-card">
+        <div class="check-icon">💡</div>
+        <h3>Recommendations</h3>
+        <p>Get practical actions to improve product performance.</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- AI RESULT -->
+
+  <section class="result-section">
+
+    <div class="result-header">
+  <div>
+    <span class="section-label">AI RESULT</span>
+    <h2>Product <span>Diagnosis</span></h2>
+  </div>
+
+  @if (analysisComplete && result) {
+    <span class="ai-status success-status">✦ Gemini Analysis Complete</span>
+  }
+</div>
+
+
+<!-- INITIAL STATE -->
+@if (!analysisStarted) {
+
+  <div class="empty-result">
+    <div class="empty-icon">✦</div>
+
+    <h3>Your AI analysis will appear here</h3>
+
+    <p>
+      Add your product data and click "Analyze Products with AI"
+      to receive personalized business insights.
+    </p>
+  </div>
+
+}
+
+
+<!-- LOADING STATE -->
+@if (isLoading) {
+
+  <div class="loading-card">
+
+    <div class="loading-icon">✦</div>
+
+    <div>
+      <span class="card-label">GEMINI AI</span>
+      <h3>Analyzing your products...</h3>
+      <p>
+        Checking sales, profitability and inventory patterns.
+      </p>
+    </div>
+
+  </div>
+
+}
+
+
+<!-- ERROR -->
+@if (!isLoading && analysisComplete && errorMessage) {
+
+  <div class="error-card">
+
+    <div class="error-icon">⚠</div>
+
+    <div>
+      <strong>Analysis could not be completed</strong>
+
+      <p>{{ errorMessage }}</p>
+
+      <button
+        type="button"
+        class="retry-button"
+        (click)="analyzeProducts()">
+        Try Again
+      </button>
+    </div>
+
+  </div>
+
+}
+
+
+<!-- SUCCESS RESULT -->
+@if (!isLoading && analysisComplete && !errorMessage && result) {
+
+  <!-- SUMMARY CARD -->
+  <div class="summary-card">
+
+    <div class="summary-top">
+      <div class="summary-icon">✦</div>
+
+      <div>
+        <span class="card-label">GEMINI AI DIAGNOSIS</span>
+        <h3>Product Analysis is Ready</h3>
+      </div>
+    </div>
+
+    <div class="summary-text">
+      {{ result.summary }}
+    </div>
+
+  </div>
+
+
+  <!-- SCORE CARDS -->
+  <div class="result-grid">
+
+    <div class="result-card score-card">
+      <span class="result-card-label">OVERALL SCORE</span>
+
+      <strong>
+        {{ result.overallScore }}
+        <small>/100</small>
+      </strong>
+
+      <div class="score-bar">
+        <div
+          class="score-fill"
+          [style.width.%]="result.overallScore">
+        </div>
+      </div>
+
+      <p>Overall product health.</p>
+    </div>
+
+
+    <div class="result-card attention-card">
+      <span class="result-card-label">NEEDS ATTENTION</span>
+
+      <strong>{{ attentionCount }}</strong>
+
+      <p>Products requiring action.</p>
+    </div>
+
+
+    <div class="result-card healthy-card">
+      <span class="result-card-label">HEALTHY PRODUCTS</span>
+
+      <strong>{{ healthyCount }}</strong>
+
+      <p>Products performing well.</p>
+    </div>
+
+  </div>
+
+
+  <!-- TOP RECOMMENDATION -->
+  <div class="recommendation-card">
+
+    <div class="recommendation-icon">💡</div>
+
+    <div>
+      <span class="card-label">TOP RECOMMENDATION</span>
+
+      <h3>What should you do next?</h3>
+
+      <p>{{ result.topRecommendation }}</p>
+    </div>
+
+  </div>
+
+
+  <!-- INDIVIDUAL DIAGNOSIS -->
+  <div class="diagnosis-section">
+
+    <div class="section-heading diagnosis-heading">
+
+      <span class="section-label">
+        PER-PRODUCT ANALYSIS
+      </span>
+
+      <h2>
+        Individual <span>Diagnoses</span>
+      </h2>
+
+    </div>
+
+
+    @for (product of analysedProducts; track product.id) {
+
+      <div class="diagnosis-card">
+
+        <!-- PRODUCT HEADER -->
+        <div class="diagnosis-header">
+
+          <div class="diagnosis-name">
+
+            <div class="diagnosis-initial">
+              {{ product.productName.charAt(0) }}
+            </div>
+
+            <div>
+              <strong>{{ product.productName }}</strong>
+              <span>{{ product.category }}</span>
+            </div>
+
+          </div>
+
+
+          <div class="diagnosis-badges">
+
+            <span
+              class="health-badge"
+              [ngClass]="getStatusClass(product.healthStatus)">
+              {{ product.healthStatus }}
+            </span>
+
+            <span class="score-badge">
+              {{ product.healthScore }}/100
+            </span>
+
+          </div>
+
+        </div>
+
+
+        <!-- BASIC METRICS -->
+        <div class="diagnosis-metrics">
+
+          <div class="diag-metric">
+            <span>COST</span>
+            <strong>₹{{ product.costPrice }}</strong>
+          </div>
+
+          <div class="diag-metric">
+            <span>PRICE</span>
+            <strong>₹{{ product.sellingPrice }}</strong>
+          </div>
+
+          <div class="diag-metric">
+            <span>PROFIT / UNIT</span>
+            <strong>₹{{ product.profit }}</strong>
+          </div>
+
+          <div class="diag-metric">
+            <span>SALES RATE</span>
+            <strong>{{ product.salesRate }}%</strong>
+          </div>
+
+          <div class="diag-metric">
+            <span>STOCK</span>
+            <strong>{{ product.stockQuantity }}</strong>
+          </div>
+
+          <div class="diag-metric">
+            <span>SOLD</span>
+            <strong>{{ product.unitsSold }}</strong>
+          </div>
+
+        </div>
+
+
+        <!-- AI INSIGHTS -->
+        <div class="diagnosis-insights">
+
+
+          <!-- SALES -->
+          <div class="diag-insight sales-insight">
+
+            <div class="insight-heading">
+              <span class="insight-icon">📈</span>
+
+              <div>
+                <span class="insight-label">SALES PERFORMANCE</span>
+                <strong>Sales Analysis</strong>
+              </div>
+            </div>
+
+            <p>{{ product.salesPerformance }}</p>
+
+          </div>
+
+
+          <!-- PROFIT -->
+          <div class="diag-insight profit-insight">
+
+            <div class="insight-heading">
+              <span class="insight-icon">💰</span>
+
+              <div>
+                <span class="insight-label">PROFITABILITY</span>
+                <strong>Profit Analysis</strong>
+              </div>
+            </div>
+
+            <p>{{ product.profitability }}</p>
+
+          </div>
+
+
+          <!-- INVENTORY -->
+          <div class="diag-insight inventory-insight">
+
+            <div class="insight-heading">
+              <span class="insight-icon">📦</span>
+
+              <div>
+                <span class="insight-label">INVENTORY RISK</span>
+                <strong>Stock Analysis</strong>
+              </div>
+            </div>
+
+            <p>{{ product.inventoryRisk }}</p>
+
+          </div>
+
+
+          <!-- KEY PROBLEM -->
+          <div class="diag-insight problem-insight">
+
+            <div class="insight-heading">
+              <span class="insight-icon">⚠</span>
+
+              <div>
+                <span class="insight-label">KEY PROBLEM</span>
+                <strong>What needs attention?</strong>
+              </div>
+            </div>
+
+            <p>{{ product.keyProblem }}</p>
+
+          </div>
+
+        </div>
+
+
+        <!-- RECOMMENDED ACTION -->
+        <div class="diagnosis-action">
+
+          <div class="action-heading">
+            <span>💡</span>
+
+            <div>
+              <span class="insight-label">RECOMMENDED ACTION</span>
+              <strong>What you should do</strong>
+            </div>
+          </div>
+
+          <p>{{ product.recommendedAction }}</p>
+
+        </div>
+
+      </div>
+
+    }
+
+  </div>
+
+}
+
+  </section>
+
+</div>

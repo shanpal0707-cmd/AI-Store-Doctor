@@ -1,0 +1,171 @@
+<div class="auth-page">
+
+  <!-- HEADER -->
+
+  <header class="auth-header">
+    <div class="brand">
+      <div class="brand-icon">✦</div>
+      <div>
+        <h2>AI Store Doctor</h2>
+        <span>Smart Business Assistant</span>
+      </div>
+    </div>
+    <div class="step-indicator">
+      <span>Step</span>
+      <span class="step-num">1</span>
+      <span>of 2 — Create Account</span>
+    </div>
+  </header>
+
+
+  <!-- MAIN -->
+
+  <main class="auth-main">
+    <div class="auth-container">
+
+
+      <!-- LEFT -->
+
+      <section class="intro-section">
+
+        <div class="eyebrow">✦ GET STARTED FREE</div>
+
+        <h1>
+          Your AI-powered
+          <span>retail assistant.</span>
+        </h1>
+
+        <p>
+          Create your free account and let AI Store Doctor help you
+          understand your products, grow your sales and make smarter
+          business decisions.
+        </p>
+
+        <div class="benefits">
+
+          <div class="benefit">
+            <div class="benefit-icon">✦</div>
+            <div>
+              <strong>AI Product Analysis</strong>
+              <span>Instant insights on every product.</span>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">↗</div>
+            <div>
+              <strong>Market Intelligence</strong>
+              <span>Spot opportunities before competitors.</span>
+            </div>
+          </div>
+
+          <div class="benefit">
+            <div class="benefit-icon">✎</div>
+            <div>
+              <strong>AI Content Creator</strong>
+              <span>Marketing content in seconds.</span>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+
+      <!-- FORM CARD -->
+
+      <section class="form-card">
+
+        <div class="form-header">
+          <div>
+            <span class="form-label">CREATE YOUR ACCOUNT</span>
+            <h2>Sign up</h2>
+            <p>It takes less than a minute to get started.</p>
+          </div>
+          <div class="form-icon">👤</div>
+        </div>
+
+
+        <!-- SUCCESS -->
+
+        @if (successMessage) {
+          <div class="success-banner">
+            ✓ {{ successMessage }}
+          </div>
+        }
+
+
+        <!-- ERROR -->
+
+        @if (errorMessage) {
+          <div class="error-banner">
+            ⚠ {{ errorMessage }}
+          </div>
+        }
+
+
+        <!-- FORM -->
+
+        <form (ngSubmit)="signUp()">
+
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input
+              id="fullName"
+              name="fullName"
+              type="text"
+              placeholder="e.g. Priya Sharma"
+              [(ngModel)]="fullName"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              placeholder="e.g. priya@mystore.com"
+              [(ngModel)]="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Min. 6 characters"
+              [(ngModel)]="password"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              type="password"
+              placeholder="Repeat your password"
+              [(ngModel)]="confirmPassword"
+            />
+          </div>
+
+          <button type="submit" class="submit-button">
+            Create My Account <span>→</span>
+          </button>
+
+          <div class="auth-link">
+            Already have an account?
+            <a routerLink="/login">Log in</a>
+          </div>
+
+        </form>
+
+      </section>
+
+    </div>
+  </main>
+
+</div>
